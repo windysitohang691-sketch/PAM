@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ProdukDetailPage extends StatefulWidget {
+class ProdukDetailPage extends StatelessWidget {
   final String namaProduk;
   final int harga;
 
@@ -10,16 +10,20 @@ class ProdukDetailPage extends StatefulWidget {
     required this.harga,
   });
 
-  @override
-  State<ProdukDetailPage> createState() => _ProdukDetailPageState();
-}
+  String formatRupiah(int harga) {
+    return 'Rp ${harga.toString().replaceAllMapped(
+      RegExp(r'\B(?=(\d{3})+(?!\d))'),
+      (match) => '.',
+    )}';
+  }
 
-class _ProdukDetailPageState extends State<ProdukDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Produk'),
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -30,51 +34,51 @@ class _ProdukDetailPageState extends State<ProdukDetailPage> {
               width: double.infinity,
               height: 220,
               decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(16),
+                color: const Color(0xFFEDE7F6),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: const Icon(
                 Icons.shopping_bag,
-                size: 100,
+                size: 90,
+                color: Colors.deepPurple,
               ),
             ),
-
             const SizedBox(height: 20),
-
             Text(
-              widget.namaProduk,
+              namaProduk,
               style: const TextStyle(
-                fontSize: 26,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 10),
-
             Text(
-              'Rp ${widget.harga}',
+              formatRupiah(harga),
               style: const TextStyle(
-                fontSize: 22,
+                fontSize: 21,
+                color: Colors.deepPurple,
                 fontWeight: FontWeight.bold,
               ),
             ),
-
-            const SizedBox(height: 30),
-
+            const SizedBox(height: 15),
+            const Text(
+              'Produk pilihan untuk kebutuhan sehari-hari.',
+              style: TextStyle(fontSize: 15),
+            ),
+            const Spacer(),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        '${widget.namaProduk} ditambahkan ke keranjang',
-                      ),
-                    ),
-                  );
+                  Navigator.pop(context, true);
                 },
                 icon: const Icon(Icons.add_shopping_cart),
                 label: const Text('Tambah ke Keranjang'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.all(15),
+                ),
               ),
             ),
           ],
