@@ -80,7 +80,7 @@ class _TambahProdukPageState extends State<TambahProdukPage> {
                   if (value == null || value.trim().isEmpty) {
                     return 'Nama produk wajib diisi';
                   }
-                  return null;
+                  return null;    
                 },
               ),
               const SizedBox(height: 16),
